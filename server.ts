@@ -47,6 +47,7 @@ io.on("connection", (socket) => {
   socket.on("getKarts", async () => {
     try {
       const karts = await Kart.find()
+      io.emit('getKartsUpdate', karts)
     } catch (error) {
       console.log(error)
     }
@@ -57,9 +58,10 @@ io.on("connection", (socket) => {
     try {
       const newKart = new Kart({id: data.id, status: data.status})
       newKart.save()
+      io.emit('UpdateKarts')
     } catch (error) {
       console.log(error)
-    }
+    } 
   })
 });
 
