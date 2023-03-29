@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
         status: data.status,
         size: data.size,
       });
-      newKart.save();
+      await newKart.save();
       io.emit("UpdateKarts");
     } catch (error) {
       console.log(error);
