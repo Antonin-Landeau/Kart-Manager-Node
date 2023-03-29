@@ -3,6 +3,8 @@ import http from "http";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 
+import { Kart } from "./src/Models/Karts";
+
 const app = express();
 
 const server = http.createServer(app);
@@ -41,6 +43,24 @@ io.on("connection", (socket) => {
     users.push(newUser);
     io.emit("newUserUpdate", users);
   });
+
+  socket.on("getKarts", async () => {
+    try {
+      const karts = await Kart.find()
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  socket.on("addKart", async (data) => {
+    
+    try {
+      const newKart = new Kart({id: data.id, status: data.status})
+      newKart.save()
+    } catch (error) {
+      console.log(error)
+    }
+  })
 });
 
 server.listen(4000, () => {
