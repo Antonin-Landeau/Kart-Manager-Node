@@ -46,23 +46,26 @@ io.on("connection", (socket) => {
 
   socket.on("getKarts", async () => {
     try {
-      const karts = await Kart.find()
-      io.emit('getKartsUpdate', karts)
+      const karts = await Kart.find();
+      io.emit("getKartsUpdate", karts);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  })
+  });
 
   socket.on("addKart", async (data) => {
-    
     try {
-      const newKart = new Kart({id: data.id, status: data.status})
-      newKart.save()
-      io.emit('UpdateKarts')
+      const newKart = new Kart({
+        id: data.id,
+        status: data.status,
+        size: data.size,
+      });
+      newKart.save();
+      io.emit("UpdateKarts");
     } catch (error) {
-      console.log(error)
-    } 
-  })
+      console.log(error);
+    }
+  });
 });
 
 server.listen(4000, () => {
