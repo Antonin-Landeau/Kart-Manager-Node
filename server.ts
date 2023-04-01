@@ -66,6 +66,10 @@ io.on("connection", (socket) => {
       console.log(error);
     }
   });
+
+  socket.on("updateKart", async (data) => {
+    console.log(data);
+  });
 });
 
 server.listen(4000, () => {
