@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const kartSchema = new mongoose.Schema(
   {
-    id: {
+    number: {
       type: Number,
       required: true,
     },
@@ -14,6 +14,25 @@ const kartSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    updatedBy: {
+      type:String,
+    },
+    duration: {
+      type:String
+    },
+    startTime: {
+      type:String,
+    },
+    endTime: {
+      type: String
+    },
+    client:{
+      type: {
+        firstName: String,
+        lastName: String,
+        phoneNumber: String
+      }
+    }
   },
   { timestamps: true }
 );

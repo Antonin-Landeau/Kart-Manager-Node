@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
   socket.on("addKart", async (data) => {
     try {
       const newKart = new Kart({
-        id: data.id,
+        number: data.number,
         status: data.status,
         size: data.size,
       });
@@ -69,6 +69,21 @@ io.on("connection", (socket) => {
 
   socket.on("updateKart", async (data) => {
     console.log(data);
+    try {
+      const updatedKart = await Kart.findByIdAndUpdate(data._id, {
+        status: data.status,
+        updatedBy: data.updatedBy,
+        duration: data.duration,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        client: data.client
+      })
+      console.log(updatedKart)
+      io.emit("UpdateKarts");
+
+    } catch (error) {
+      console.log(error)
+    }
   });
 });
 
