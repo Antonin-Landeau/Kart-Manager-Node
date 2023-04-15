@@ -2,10 +2,14 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 import { Kart } from "./src/Models/Karts";
 
 const app = express();
+const dbURL = process.env.MONGODB_URL
 
 const server = http.createServer(app);
 
@@ -17,9 +21,10 @@ const io = new Server(server, {
   },
 });
 
-mongoose
+if (dbURL) {
+  mongoose
   .connect(
-    "mongodb+srv://alandeau:6juKSqZmKItf6Ydn@karts-manager.argphxc.mongodb.net/?retryWrites=true&w=majority"
+    dbURL
   )
   .then(() => {
     console.log("Connected to mongo db");
@@ -27,6 +32,8 @@ mongoose
   .catch((e) => {
     console.log(e);
   });
+}
+
 
 io.on("connection", (socket) => {
   socket.on("disconnect", () => {
