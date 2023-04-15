@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-import { Kart } from "./src/Models/Karts";
+import { Kart } from "./Models/Karts";
 
 const app = express();
 const dbURL = process.env.MONGODB_URL
@@ -93,6 +93,7 @@ io.on("connection", (socket) => {
     }
   });
 });
+
 
 server.listen(4000, () => {
   console.log("Listening on port 3000");
