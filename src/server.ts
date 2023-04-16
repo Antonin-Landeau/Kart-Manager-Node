@@ -95,6 +95,10 @@ io.on("connection", (socket) => {
 });
 
 
+app.get('/', (req, res) => {
+  res.send('Server is running')
+})
+
 server.listen(4000, () => {
   console.log("Listening on port 3000");
 });
